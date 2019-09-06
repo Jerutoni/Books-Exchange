@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{label.form.title}">form</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1 th:text="#{label.form.title}">form</h1>
+        <br/>
+        <form action="#" th:action="@{/registration}" method="post" th:object="${user}">
+            <div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.firstName}">first</label>
+                <span class="col-sm-5"><input class="form-control" name="firstName" th:field="*{firstName}"
+                                              required="required"/></span>
+                <span id="firstNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
+
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.lastName}">last</label>
+                <span class="col-sm-5"><input class="form-control" name="lastName" value="" th:field="*{lastName}"
+                                              required="required"/></span>
+                <span id="lastNameError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
+
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.email}">email</label>
+                <span class="col-sm-5"><input type="email" class="form-control" name="email" value=""
+                                              th:field="*{email}" required="required"/></span>
+                <span id="emailError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</td>
+
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.password}">password</label>
+                <span class="col-sm-5"><input id="password" class="form-control" name="password" value=""
+                                              type="password" th:field="*{password}" required="required"/></span>
+                <span id="passwordError" class="alert alert-danger col-sm-4" style="display:none"></span>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+                <p th:each="error : ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3" th:text="#{label.user.confirmPass}">confirm</label>
+                <span class="col-sm-5"><input id="matchPassword" class="form-control" name="matchingPassword" value=""
+                                              th:field="*{matchingPassword}" type="password"
+                                              required="required"/></span>
+                <span id="globalError" class="alert alert-danger col-sm-4" style="display:none"></span>
+            </div>
+
+            <br/>
+            <button type="submit" class="btn btn-primary" th:text="#{label.form.submit}">submit</button>
+        </form>
+        <br/>
+        <a th:href="@{/login}" th:text="#{label.form.loginLink}">login</a>
+    </div>
+</div>
+</body>
+</html>

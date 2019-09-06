@@ -1,4 +1,4 @@
-package com.booking.spring.confgiguration;
+package com.booking.spring.configuration;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
