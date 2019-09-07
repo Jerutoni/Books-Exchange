@@ -1,28 +1,42 @@
-package com.utill.dto;
+package com.booking.utill.dto;
 
+import com.booking.validation.PasswordMatches;
+import com.booking.validation.ValidEmail;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@PasswordMatches
 public class UserDto {
+
     @NotNull
-    @Size(min = 1, message = "{Size.userDto.firstName}")
+    @Size(min = 1, max = 15, message = "{Size.userDto.firstName}")
+    @NotBlank
     private String firstName;
 
     @NotNull
-    @Size(min = 2, message = "{Size.userDto.lastName}")
+    @Size(min = 2, max = 15, message = "{Size.userDto.lastName}")
+    @NotBlank
     private String lastName;
 
 
     //@ValidPassword
+    @NotNull
+    @NotBlank
+    @Size(min = 6)
     private String password;
 
     @NotNull
     @Size(min = 6)
+    @NotBlank
     private String matchingPassword;
 
-    //@ValidEmail
+    @ValidEmail
     @NotNull
-    @Size(min = 6)
+    @Size(min = 7, message = "{Size.userDto.email}")
     private String email;
 
     public String getFirstName() {
