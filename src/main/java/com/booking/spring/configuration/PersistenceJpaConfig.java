@@ -21,7 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = "com.booking.persistence.dao")
 @PropertySource("classpath:database.properties")
 public class PersistenceJpaConfig {
     @Autowired

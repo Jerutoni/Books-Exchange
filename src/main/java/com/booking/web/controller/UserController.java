@@ -1,6 +1,8 @@
 package com.booking.web.controller;
 
+import com.booking.service.UserService;
 import com.booking.utill.dto.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,9 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -25,6 +30,7 @@ public class UserController {
         if (result.hasErrors()) {
             return "registration";
         }
+        userService.registerNewUserAccount(userDto);
         return "redirect:/login";
     }
 }
