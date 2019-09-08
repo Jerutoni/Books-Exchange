@@ -5,6 +5,7 @@ import com.booking.persistence.model.User;
 import com.booking.utill.dto.UserDto;
 import com.booking.web.error.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,8 +17,11 @@ public class UserService implements IUserService {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
-    public User registerNewUserAccount(final UserDto userDto) throws UserAlreadyExistException{
+    public User registerNewUserAccount(final UserDto userDto) throws UserAlreadyExistException {
         if (emailExists(userDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email adress: " + userDto.getEmail());
         }
@@ -25,9 +29,9 @@ public class UserService implements IUserService {
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         repository.save(user);
-        return  user;
+        return user;
     }
 
     private boolean emailExists(final String email) {
